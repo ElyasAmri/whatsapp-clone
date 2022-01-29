@@ -1,25 +1,23 @@
-
 import {Octicons, MaterialCommunityIcons, Fontisto, MaterialIcons, FontAwesome5} from '@expo/vector-icons'
 import {NavigationContainer, DefaultTheme, DarkTheme} from '@react-navigation/native'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
-import {ColorSchemeName, View as DefaultView} from 'react-native'
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs'
+import {ColorSchemeName, View} from 'react-native'
 
 import Colors from '../constants/Colors'
 import useColorScheme from '../hooks/useColorScheme'
-import {RootStackParamList, RootTabParamList} from '../types'
+import type {RootStackParamList, RootTabParamList} from '../types'
 import LinkingConfiguration from './LinkingConfiguration'
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs'
-import {View} from '../components/Themed'
 
 import {
   ChatsListScreen,
+  ChatScreen,
   StatusScreen,
   NotFoundScreen,
   CallsScreen,
   CameraScreen,
   // ModalScreen,
 } from '../screens'
-
 
 export default function Navigation({colorScheme}: {colorScheme: ColorSchemeName}) {
   return (
@@ -54,13 +52,16 @@ function RootNavigator() {
         {/*<Stack.Group screenOptions={{ presentation: 'modal' }}>*/}
         {/*  <Stack.Screen name="Modal" component={ModalScreen} />*/}
         {/*</Stack.Group>*/}
-        <Stack.Screen name={'ChatScreen'} component={ChatsListScreen} options={({route}) => ({
+        <Stack.Screen name="ChatScreen" component={ChatScreen} options={({route}) => ({
           title: route.params.name,
+          headerTitleStyle: {
+            fontWeight: 'normal',
+          },
           headerRight: () => (
-              <View style={{flexDirection: 'row', width: 120, justifyContent: 'space-between'}}>
-                <FontAwesome5 name="video" size={22} color={Colors.light.background}/>
-                <MaterialIcons name="call" size={22} color={Colors.light.background}/>
-                <MaterialCommunityIcons name="dots-vertical" size={22} color={Colors.light.background}/>
+              <View style={{flexDirection: 'row', width: 120, justifyContent: 'space-between', margin: -4}}>
+                <FontAwesome5 name="video" size={20} color={Colors.light.background}/>
+                <MaterialIcons name="call" size={20} color={Colors.light.background}/>
+                <MaterialCommunityIcons name="dots-vertical" size={20} color={Colors.light.background}/>
               </View>
           ),
         })}/>
@@ -74,41 +75,44 @@ function TopTabNavigator() {
   const colorScheme = useColorScheme()
 
   return (
-      <TopTab.Navigator initialRouteName="Chats"
-                        screenOptions={{
-                          tabBarActiveTintColor: Colors[colorScheme].background,
-                          tabBarStyle: {
-                            backgroundColor: Colors[colorScheme].tint,
-                          },
-                          tabBarIndicatorStyle: {
-                            backgroundColor: Colors[colorScheme].background,
-                            height: 4,
-                          },
-                          tabBarLabelStyle: {
-                            fontWeight: 'bold',
-                          },
-                          tabBarShowIcon: true,
-                        }}>
-        <TopTab.Screen name="Camera" component={CameraScreen}
-                       options={{
-                         tabBarIcon: () => <Fontisto name="camera" color={Colors[colorScheme].tabIconDefault}
-                                                     size={18}/>,
-                         tabBarShowLabel: false,
-                       }}
+      <TopTab.Navigator
+          initialRouteName="Chats"
+          screenOptions={{
+            tabBarActiveTintColor: Colors[colorScheme].background,
+            tabBarStyle: {
+              backgroundColor: Colors[colorScheme].tint,
+            },
+            tabBarIndicatorStyle: {
+              backgroundColor: Colors[colorScheme].background,
+              height: 4,
+            },
+            tabBarLabelStyle: {
+              fontWeight: 'bold',
+            },
+            tabBarShowIcon: true,
+          }}>
+        <TopTab.Screen
+            name="Camera"
+            component={CameraScreen}
+            options={{
+              tabBarIcon: () => (
+                  <Fontisto name="camera" color={Colors[colorScheme].tabIconDefault} size={18}/>
+              ),
+              tabBarShowLabel: false,
+            }}
         />
         <TopTab.Screen name="Chats" component={ChatsListScreen}/>
         <TopTab.Screen name="Status" component={StatusScreen}/>
         <TopTab.Screen name="Calls" component={CallsScreen}/>
-
       </TopTab.Navigator>
   )
 }
 
 const HeaderRight = () => {
   return (
-      <DefaultView style={{flexDirection: 'row', width: 60, justifyContent: 'space-between', marginRight: -4}}>
+      <View style={{flexDirection: 'row', width: 60, justifyContent: 'space-between', marginRight: -4}}>
         <Octicons name="search" size={20} color={Colors.light.background}/>
         <MaterialCommunityIcons name="dots-vertical" size={20} color={Colors.light.background}/>
-      </DefaultView>
+      </View>
   )
 }

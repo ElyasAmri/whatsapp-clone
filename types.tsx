@@ -15,6 +15,7 @@ export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined
   ChatScreen: {
     id: string
+    name: string
   }
   NotFound: undefined
 };
@@ -38,7 +39,7 @@ export type ChatListItemProps = {
   id: string
   name: string
   image: string
-  lastMessage: Message
+  lastMessage: Message | undefined
 }
 
 // -- Functionality Data Types
@@ -61,4 +62,5 @@ export type Message = {
   id: string
   content: string
   timestamp: string
+  sender: string
 }
