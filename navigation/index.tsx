@@ -1,4 +1,4 @@
-import React from 'react'
+
 import {Octicons, MaterialCommunityIcons, Fontisto, MaterialIcons, FontAwesome5} from '@expo/vector-icons'
 import {NavigationContainer, DefaultTheme, DarkTheme} from '@react-navigation/native'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
