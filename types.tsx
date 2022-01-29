@@ -1,35 +1,33 @@
-/**
- * Learn more about using TypeScript with React Navigation:
- * https://reactnavigation.org/docs/typescript/
- */
-
-import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
-import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import {CompositeScreenProps, NavigatorScreenParams} from '@react-navigation/native'
+import {NativeStackScreenProps} from '@react-navigation/native-stack'
+import {MaterialTopTabScreenProps} from '@react-navigation/material-top-tabs'
 
 declare global {
   namespace ReactNavigation {
-    interface RootParamList extends RootStackParamList {}
+    interface RootParamList extends RootStackParamList {
+    }
   }
 }
 
 export type RootStackParamList = {
-  Root: NavigatorScreenParams<RootTabParamList> | undefined;
-  Modal: undefined;
-  NotFound: undefined;
+  Root: NavigatorScreenParams<RootTabParamList> | undefined
+  ChatScreen: {
+    id: string
+    name: string
+  }
+  NotFound: undefined
 };
 
-export type RootStackScreenProps<Screen extends keyof RootStackParamList> = NativeStackScreenProps<
-  RootStackParamList,
-  Screen
->;
+export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
+    NativeStackScreenProps<RootStackParamList, Screen>;
+
+export type RootTabScreenProps<Screen extends keyof RootTabParamList> =
+    CompositeScreenProps<MaterialTopTabScreenProps<RootTabParamList, Screen>,
+        NativeStackScreenProps<RootStackParamList>>;
 
 export type RootTabParamList = {
-  TabOne: undefined;
-  TabTwo: undefined;
-};
-
-export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<
-  BottomTabScreenProps<RootTabParamList, Screen>,
-  NativeStackScreenProps<RootStackParamList>
->;
+  Camera: undefined
+  Chats: undefined
+  Status: undefined
+  Calls: undefined
+}
