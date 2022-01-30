@@ -10,7 +10,6 @@ export default function ChatMessage({sender, content, timestamp}: Message) {
       <View style={[styles.container, left ? styles.containerLeft : styles.containerRight]}>
         <Text>{left ? sender : 'You'}</Text>
         <Text>{content}</Text>
-        {/*TODO: fix moment date format issue*/}
         <Text style={styles.timestamp}>{moment(timestamp).format('HH:MM')}</Text>
       </View>
   )

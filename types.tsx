@@ -61,6 +61,6 @@ export type Chat = {
 export type Message = {
   id: string
   content: string
-  timestamp: string
+  timestamp: number
   sender: string
 }

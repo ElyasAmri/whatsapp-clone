@@ -22,7 +22,6 @@ export default function ChatListItem({id, name, image, lastMessage}: ChatListIte
           {lastMessage &&
               <>
                 <Text style={styles.lastMessage}>{lastMessage.content}</Text>
-                {/*TODO: fix moment data format issue*/}
                 <Text style={styles.timestamp}>{moment(lastMessage.timestamp).format('DD/MM/YYYY')}</Text>
               </>
           }
